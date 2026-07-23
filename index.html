@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-<title>用药助手 v2.1</title>
+<title data-i18n="app_title">用药助手 v2.1</title>
 
 <style>
 :root {
@@ -121,6 +121,30 @@ html { height: 100%; }
     background-image: none;
 }
 
+/* ========== 语言选择器 ========== */
+.lang-bar {
+    display: flex;
+    justify-content: center;
+    gap: 6px;
+    padding: 6px 0;
+}
+.lang-btn {
+    padding: 4px 12px;
+    border-radius: var(--radius-pill);
+    border: 1px solid var(--border);
+    background: transparent;
+    color: var(--text-muted);
+    font-size: 12px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+.lang-btn.active {
+    border-color: var(--primary);
+    color: var(--primary);
+    background: var(--primary-light);
+}
+
 body {
     height: 100vh;
     max-width: 520px;
@@ -128,7 +152,7 @@ body {
     overflow: hidden;
     display: flex;
     flex-direction: column;
-    font-family: 'Space Grotesk', 'Noto Sans SC', -apple-system, BlinkMacSystemFont, sans-serif;
+    font-family: 'Noto Sans SC', 'Space Grotesk', -apple-system, BlinkMacSystemFont, sans-serif;
     background: var(--bg);
     color: var(--text);
     -webkit-font-smoothing: antialiased;
@@ -323,7 +347,7 @@ a { color: inherit; }
     color: #fff;
 }
 
-/* ========== 主体内容 ========== */
+/* ========== 主内容区 ========== */
 .main-content {
     flex: 1;
     min-height: 0;
@@ -333,7 +357,6 @@ a { color: inherit; }
     flex-direction: column;
 }
 
-/* ========== 药品卡片 ========== */
 .carousel-wrap {
     flex: 1;
     min-height: 0;
@@ -475,250 +498,128 @@ a { color: inherit; }
     line-height: 1.5;
 }
 
-.dots {
-    flex-shrink: 0;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 7px;
-    padding: 4px 0;
-}
-
-.dots span {
-    width: 8px;
-    height: 8px;
-    border-radius: 50%;
-    background: var(--border);
-    transition: all 0.25s ease;
-    cursor: pointer;
-}
-
-.dots span.active {
-    width: 28px;
-    border-radius: var(--radius-pill);
-    background: var(--primary);
-}
-
-/* ========== 快速操作按钮 ========== */
+/* ========== 快捷操作 ========== */
 .quick-actions {
+    display: flex;
+    gap: 10px;
     flex-shrink: 0;
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 12px;
-    padding: 4px 0 8px;
+    margin-top: 10px;
 }
 
-.quick-actions a { display: block; text-decoration: none; }
-
-.ate-btn, .emer-btn {
-    width: 100%;
-    min-height: 80px;
-    border-radius: 0;
-    cursor: pointer;
+.quick-actions button {
+    flex: 1;
+    padding: 18px 10px;
+    border-radius: var(--radius-lg);
+    font-weight: 700;
+    transition: all 0.3s ease;
     display: flex;
     flex-direction: column;
-    justify-content: center;
     align-items: center;
     gap: 4px;
-    padding: 16px;
-    text-align: center;
-    transition: transform 0.12s ease, opacity 0.2s ease;
-    position: relative;
-    overflow: hidden;
-}
-
-.ate-btn:active, .emer-btn:active {
-    transform: scale(0.97);
-    opacity: 0.9;
 }
 
 .ate-btn {
-    background: var(--success);
-    color: #000000;
-    font-weight: 700;
-    padding: 16px;
-    font-size: 15px;
-    letter-spacing: 0.5px;
-    transition: all 0.2s ease;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.3);
-    border: 1px solid var(--border);
+    background: var(--success-light);
+    color: var(--success);
+    border: 1px solid var(--success);
 }
 
 .ate-btn:hover {
-    background: var(--success-light);
-    transform: translateY(-1px);
-    box-shadow: 0 4px 12px rgba(0,0,0,0.4);
-}
-
-.ate-btn:active {
-    transform: translateY(0);
-}
-
-/* 纯黑主题特殊处理 */
-:root[data-theme="black"] .ate-btn {
-    background: #333333;
-    color: #FFFFFF;
-    border: 1px solid #555555;
-}
-
-:root[data-theme="black"] .ate-btn:hover {
-    background: #444444;
+    background: var(--success);
+    color: #000;
 }
 
 .emer-btn {
-    background: var(--danger);
-    color: #000000;
-    font-weight: 700;
-    padding: 16px;
-    font-size: 15px;
-    letter-spacing: 0.5px;
-    transition: all 0.2s ease;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.3);
-    border: 1px solid var(--border);
+    background: var(--danger-light);
+    color: var(--danger);
+    border: 1px solid var(--danger);
 }
 
 .emer-btn:hover {
-    background: var(--danger-light);
-    transform: translateY(-1px);
-    box-shadow: 0 4px 12px rgba(0,0,0,0.4);
-}
-
-/* 纯黑主题特殊处理 */
-:root[data-theme="black"] .emer-btn {
-    background: #444444;
-    color: #FFFFFF;
-    border: 1px solid #666666;
-}
-
-:root[data-theme="black"] .emer-btn:hover {
-    background: #555555;
+    background: var(--danger);
+    color: #000;
 }
 
 .btn-main {
-    position: relative;
-    z-index: 1;
     font-size: 20px;
-    line-height: 1;
     font-weight: 800;
 }
 
 .btn-sub {
-    position: relative;
-    z-index: 1;
     font-size: 12px;
-    line-height: 1.2;
     font-weight: 500;
-    opacity: 0.9;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
+    opacity: 0.8;
 }
 
-/* ========== 完成状态 ========== */
+/* ========== 已完成 ========== */
 .done-state {
     flex: 1;
-    min-height: 300px;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    padding: 34px 20px;
-    border-radius: var(--radius-lg);
-    background: var(--card);
-    border: 1px solid var(--border);
+    padding: 60px 20px;
     text-align: center;
 }
 
 .done-state .big {
-    width: 80px;
-    height: 80px;
-    border-radius: 20px;
-    background: var(--success-light);
-    border: 2px solid var(--success);
+    font-size: 64px;
+    line-height: 1;
     color: var(--success);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 48px;
-    font-weight: 900;
-    margin-bottom: 20px;
+    margin-bottom: 16px;
 }
 
 .done-state h2 {
     font-size: 22px;
     font-weight: 800;
+    margin-bottom: 8px;
     color: var(--text);
-    margin-bottom: 6px;
 }
 
 .done-state p {
-    font-size: 15px;
-    font-weight: 500;
+    font-size: 14px;
     color: var(--text-secondary);
+    line-height: 1.6;
 }
 
 /* ========== 设置页 ========== */
-#view-setting {
-    flex: 1;
-    min-height: 0;
-    overflow-y: auto;
-    display: flex;
-    flex-direction: column;
-    padding-bottom: 20px;
-}
-
 .section-title {
-    margin: 12px 0 10px;
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    font-size: 17px;
+    font-size: 16px;
     font-weight: 800;
+    margin: 18px 0 10px;
     color: var(--text);
-}
-
-.section-title::after {
-    content: "";
-    flex: 1;
-    height: 1px;
-    background: var(--border);
-}
-
-.med-set, .contact-row {
-    background: var(--card);
-    border-radius: var(--radius);
-    border: 1px solid var(--border);
+    letter-spacing: 0.3px;
 }
 
 .med-set {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 14px;
     margin-bottom: 10px;
-    padding: 12px;
 }
 
 .med-set .top {
     display: flex;
-    align-items: center;
     justify-content: space-between;
+    align-items: center;
     margin-bottom: 10px;
 }
 
 .med-set .top .label {
-    padding: 4px 10px;
-    border-radius: var(--radius-pill);
-    background: var(--primary-light);
-    color: var(--primary);
-    font-size: 12px;
     font-weight: 700;
+    font-size: 14px;
+    color: var(--text-secondary);
 }
 
 .med-set .top .del {
-    padding: 5px 10px;
-    border-radius: var(--radius-pill);
+    padding: 4px 12px;
+    border-radius: 8px;
     background: var(--danger-light);
     color: var(--danger);
     font-size: 12px;
-    font-weight: 700;
-    cursor: pointer;
+    font-weight: 600;
+    border: 1px solid var(--danger);
 }
 
 .med-set .row {
@@ -727,61 +628,54 @@ a { color: inherit; }
     margin-bottom: 8px;
 }
 
-.med-set .row .fld,
-.contact-row .fld {
+.med-set .fld {
     flex: 1;
-    min-width: 0;
 }
 
-.med-set label,
-.contact-row label {
+.med-set .fld label {
     display: block;
-    margin: 0 0 4px 2px;
     font-size: 12px;
     font-weight: 600;
-    color: var(--text-secondary);
-}
-
-.med-set input,
-.contact-row input {
-    width: 100%;
-    min-height: 42px;
-    padding: 8px 12px;
-    border: 1.5px solid var(--border);
-    border-radius: 10px;
-    outline: none;
-    background: var(--card-alt);
-    font-size: 15px;
-    font-weight: 600;
-    color: var(--text);
-    transition: border-color 0.2s;
-}
-
-.med-set input:focus,
-.contact-row input:focus {
-    border-color: var(--primary);
-    background: var(--card);
-}
-
-.med-set input::placeholder,
-.contact-row input::placeholder {
     color: var(--text-muted);
-    font-weight: 400;
+    margin-bottom: 4px;
 }
 
-.photo-set { margin-top: 2px; }
+.med-set .fld input {
+    width: 100%;
+    padding: 8px 10px;
+    border-radius: 8px;
+    background: var(--card-alt);
+    border: 1px solid var(--border);
+    color: var(--text);
+    font-size: 14px;
+}
+
+.med-set .fld input:focus {
+    outline: none;
+    border-color: var(--primary);
+}
+
+.photo-set {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-top: 6px;
+}
+
+.photo-set input[type="file"] { display: none; }
 
 .photo-box {
-    position: relative;
-    height: 120px;
-    border-radius: 12px;
-    border: 2px dashed var(--border);
+    width: 60px;
+    height: 60px;
+    border-radius: 10px;
     background: var(--card-alt);
-    overflow: hidden;
-    cursor: pointer;
+    border: 1px dashed var(--border);
     display: flex;
     align-items: center;
     justify-content: center;
+    cursor: pointer;
+    overflow: hidden;
+    position: relative;
 }
 
 .photo-box img {
@@ -791,312 +685,350 @@ a { color: inherit; }
 }
 
 .photo-box .hint {
-    font-size: 14px;
-    font-weight: 500;
+    font-size: 11px;
     color: var(--text-muted);
+    text-align: center;
+    line-height: 1.3;
 }
 
 .photo-clr {
     position: absolute;
-    top: 8px;
-    right: 8px;
-    width: 28px;
-    height: 28px;
-    border-radius: 8px;
+    top: 2px;
+    right: 2px;
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
     background: rgba(0,0,0,0.6);
     color: #fff;
-    font-size: 14px;
-    font-weight: 700;
-    cursor: pointer;
+    font-size: 11px;
     display: flex;
     align-items: center;
     justify-content: center;
-}
-
-input[type="file"] { display: none; }
-
-.add-btn,
-.save-btn,
-.recycle-btn {
-    width: 100%;
-    min-height: 50px;
-    border-radius: 12px;
-    font-size: 16px;
-    font-weight: 700;
+    border: none;
     cursor: pointer;
-    transition: transform 0.12s ease, opacity 0.2s ease;
-}
-
-.add-btn:active,
-.save-btn:active,
-.recycle-btn:active {
-    transform: scale(0.97);
-    opacity: 0.9;
 }
 
 .add-btn {
-    margin: 2px 0 16px;
+    width: 100%;
+    padding: 14px;
+    border-radius: var(--radius);
     border: 2px dashed var(--border);
     background: var(--card);
     color: var(--text-secondary);
+    font-size: 15px;
+    font-weight: 700;
+    margin-bottom: 6px;
+}
+
+.add-btn:hover {
+    border-color: var(--primary);
+    color: var(--primary);
+    background: var(--primary-light);
 }
 
 .contact-row {
     display: flex;
     gap: 10px;
     margin-bottom: 12px;
-    padding: 12px;
+}
+
+.contact-row .fld { flex: 1; }
+
+.contact-row .fld label {
+    display: block;
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--text-muted);
+    margin-bottom: 4px;
+}
+
+.contact-row .fld input {
+    width: 100%;
+    padding: 10px 12px;
+    border-radius: 8px;
+    background: var(--card);
+    border: 1px solid var(--border);
+    color: var(--text);
+    font-size: 14px;
+}
+
+.contact-row .fld input:focus {
+    outline: none;
+    border-color: var(--primary);
 }
 
 .save-btn {
+    width: 100%;
+    padding: 16px;
+    border-radius: var(--radius);
     background: var(--primary);
     color: #000;
-    font-weight: 700;
-    padding: 14px 24px;
-    border-radius: var(--radius-pill);
-    font-size: 15px;
-    letter-spacing: 0.5px;
-    transition: all 0.2s ease;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.3);
-    border: 1px solid var(--border);
+    font-size: 16px;
+    font-weight: 800;
+    margin-bottom: 20px;
 }
 
-/* 纯黑主题特殊处理 */
-:root[data-theme="black"] .save-btn {
-    background: #FFFFFF;
-    color: #000000;
-    border: 1px solid #CCCCCC;
+.save-btn:hover {
+    opacity: 0.9;
+}
+
+/* ========== 主题选择 ========== */
+.theme-selector {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin: 12px 0;
+}
+
+.theme-btn {
+    flex: 1;
+    min-width: calc(50% - 4px);
+    padding: 10px 8px;
+    border-radius: 10px;
+    border: 2px solid var(--border);
+    background: var(--card);
+    color: var(--text-secondary);
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-align: center;
+}
+
+.theme-btn.active {
+    border-color: var(--primary);
+    background: var(--primary-light);
+    color: var(--primary);
+    box-shadow: none;
+}
+
+.theme-btn:hover {
+    border-color: var(--primary);
+    transform: translateY(-2px);
+}
+
+/* ========== 回收指南 ========== */
+.recycle-area {
+    margin-bottom: 60px;
 }
 
 .recycle-btn {
+    width: 100%;
+    padding: 14px;
+    border-radius: var(--radius);
     background: var(--card);
+    border: 1px solid var(--border);
     color: var(--text-secondary);
-    border: 1.5px solid var(--border);
+    font-size: 14px;
+    font-weight: 600;
 }
 
-.recycle-area {
-    margin-top: 16px;
-    padding-top: 14px;
-    border-top: 1px solid var(--border);
+.recycle-btn:hover {
+    border-color: var(--accent);
+    color: var(--accent);
 }
 
-/* ========== 弹窗 ========== */
+/* ========== Modal ========== */
 .modal-overlay {
     position: fixed;
     inset: 0;
-    z-index: 1000;
-    background: rgba(0,0,0,0.7);
-    display: none;
+    background: rgba(0,0,0,0.6);
+    z-index: 100;
+    display: flex;
     align-items: center;
     justify-content: center;
-    padding: 24px;
+    padding: 20px;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease;
 }
 
-.modal-overlay.show { display: flex; }
+.modal-overlay.show {
+    opacity: 1;
+    pointer-events: all;
+}
 
 .modal-box {
-    width: 100%;
-    max-width: 340px;
-    padding: 24px;
-    border-radius: var(--radius-lg);
     background: var(--card);
     border: 1px solid var(--border);
-    animation: modalIn 0.25s ease;
-}
-
-@keyframes modalIn {
-    from { transform: scale(0.9); opacity: 0; }
-    to { transform: scale(1); opacity: 1; }
+    border-radius: var(--radius-lg);
+    padding: 24px;
+    max-width: 100%;
+    width: 400px;
+    max-height: 80vh;
+    overflow-y: auto;
 }
 
 .modal-box .icon {
     font-size: 40px;
     text-align: center;
-    margin-bottom: 10px;
+    margin-bottom: 12px;
 }
 
 .modal-box h3 {
-    font-size: 19px;
+    font-size: 18px;
     font-weight: 800;
     text-align: center;
+    margin-bottom: 12px;
     color: var(--text);
-    margin-bottom: 8px;
 }
 
 .modal-box p {
     font-size: 14px;
     line-height: 1.7;
-    margin-bottom: 12px;
     color: var(--text-secondary);
-}
-
-.modal-box p b {
-    color: var(--text);
+    margin-bottom: 10px;
 }
 
 .modal-box .tip {
-    padding: 12px;
-    border-radius: 12px;
-    background: var(--primary-light);
-    border: 1px solid var(--primary);
-    font-size: 13px;
-    line-height: 1.7;
-    font-weight: 500;
-    color: var(--primary);
+    background: var(--card-alt);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 14px;
+    font-size: 14px;
+    line-height: 1.8;
+    color: var(--text-secondary);
     margin-bottom: 12px;
 }
 
 .modal-close {
     width: 100%;
-    min-height: 46px;
-    border-radius: 12px;
-    background: var(--card-alt);
-    border: 1.5px solid var(--border);
-    font-size: 15px;
-    font-weight: 700;
-    color: var(--text);
-    cursor: pointer;
-    transition: background 0.2s;
+    padding: 14px;
+    border-radius: var(--radius);
+    background: var(--primary);
+    color: #000;
+    font-size: 16px;
+    font-weight: 800;
 }
 
-.modal-close:active {
-    background: var(--border);
+.modal-close:hover {
+    opacity: 0.9;
 }
 
-/* ========== 图片放大 ========== */
+/* ========== Lightbox ========== */
 .lightbox {
     position: fixed;
     inset: 0;
-    z-index: 2000;
-    background: rgba(0,0,0,0.95);
-    display: none;
+    background: rgba(0,0,0,0.85);
+    z-index: 200;
+    display: flex;
     align-items: center;
     justify-content: center;
-    padding: 24px;
+    padding: 20px;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease;
 }
 
-.lightbox.show { display: flex; }
+.lightbox.show {
+    opacity: 1;
+    pointer-events: all;
+}
 
 .lightbox img {
     max-width: 100%;
-    max-height: 90vh;
-    object-fit: contain;
-    border-radius: 8px;
+    max-height: 80vh;
+    border-radius: var(--radius);
 }
 
 .lightbox-close {
     position: absolute;
     top: 20px;
     right: 20px;
-    width: 44px;
-    height: 44px;
+    width: 40px;
+    height: 40px;
     border-radius: 50%;
-    background: rgba(255,255,255,0.15);
+    background: rgba(255,255,255,0.1);
     color: #fff;
-    font-size: 24px;
-    font-weight: 700;
-    cursor: pointer;
+    font-size: 20px;
 }
 
-.photo-area.has-img img {
-    pointer-events: none;
-}
-
-/* ========== 底部导航 ========== */
+/* ========== 底部TAB ========== */
 .tab-bar {
     flex-shrink: 0;
     display: flex;
-    gap: 6px;
-    margin: 0 12px 10px;
-    padding: 4px;
-    border-radius: 14px;
     background: var(--card);
-    border: 1px solid var(--border);
+    border-top: 1px solid var(--border);
+    padding: 8px 0 env(safe-area-inset-bottom, 8px);
 }
 
 .tab-item {
     flex: 1;
-    min-height: 40px;
-    border-radius: 10px;
     text-align: center;
-    font-size: 15px;
+    padding: 10px;
+    font-size: 14px;
     font-weight: 600;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
     color: var(--text-muted);
-    transition: all 0.2s ease;
+    border-radius: 10px;
+    margin: 0 6px;
+    transition: all 0.3s ease;
 }
 
 .tab-item.active {
-    color: #fff;
-    background: var(--primary);
+    background: var(--primary-light);
+    color: var(--primary);
+}
+
+.tab-item:hover {
+    background: var(--card-alt);
 }
 
 /* ========== Toast ========== */
 .toast {
     position: fixed;
+    bottom: 80px;
     left: 50%;
-    top: 50%;
-    z-index: 999;
-    max-width: 78vw;
-    transform: translate(-50%, -50%) scale(0.88);
-    padding: 14px 20px;
-    border-radius: 12px;
+    transform: translateX(-50%) translateY(20px);
+    padding: 10px 24px;
+    border-radius: var(--radius-pill);
     background: var(--card);
     border: 1px solid var(--border);
     color: var(--text);
-    font-size: 15px;
+    font-size: 14px;
     font-weight: 600;
-    line-height: 1.45;
-    text-align: center;
+    box-shadow: var(--shadow-lg);
     opacity: 0;
     pointer-events: none;
-    transition: all 0.24s ease;
+    transition: all 0.3s ease;
+    z-index: 300;
+    white-space: nowrap;
 }
 
 .toast.show {
     opacity: 1;
-    transform: translate(-50%, -50%) scale(1);
+    transform: translateX(-50%) translateY(0);
 }
 
+/* ========== 轮播点 ========== */
+.dots {
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+    padding: 6px 0;
+    flex-shrink: 0;
+}
+
+.dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--card-alt);
+    border: 1px solid var(--border);
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.dot.active {
+    background: var(--primary);
+    border-color: var(--primary);
+    width: 24px;
+    border-radius: 4px;
+}
+
+/* ========== 隐藏 ========== */
 .hidden { display: none !important; }
 
-/* ========== 响应式 ========== */
-@media (max-width: 390px) {
-    .top-grid { grid-template-columns: 1fr 1.2fr 1fr; }
-    .top-brand .title { font-size: 20px; }
-    .top-date .date { font-size: 12px; }
-    .top-time .clock { font-size: 20px; }
-    .name-dose-row .name { font-size: 26px; }
-    .ate-btn, .emer-btn { min-height: 72px; }
-}
-
-@media (max-width: 350px) {
-    .top-grid { grid-template-columns: 1fr 1.4fr 1fr; }
-    .top-brand .title { font-size: 18px; }
-    .top-date .date { font-size: 11px; }
-    .top-time .clock { font-size: 18px; }
-    .remind-label { display: none; }
-    .med-set .row, .contact-row { flex-direction: column; }
-}
-
-@media (max-height: 720px) {
-    .photo-area { height: 180px; }
-    .ate-btn, .emer-btn { min-height: 68px; }
-}
-
-@keyframes float {
-    0%, 100% { transform: translateY(0px); }
-    50% { transform: translateY(-10px); }
-}
-
-@keyframes pulse {
-    0%, 100% { opacity: 1; }
-    50% { opacity: 0.6; }
-}
-
+/* ========== 动画 ========== */
 @keyframes slideIn {
     from { opacity: 0; transform: translateY(20px); }
     to { opacity: 1; transform: translateY(0); }
@@ -1196,7 +1128,7 @@ input[type="file"] { display: none; }
 <div class="top-bar">
     <div class="top-grid">
         <div class="top-cell top-brand">
-            <span class="title">用药助手</span>
+            <span class="title" data-i18n="med_helper">用药助手</span>
         </div>
         <div class="top-cell top-date">
             <span class="date" id="date-display">--</span>
@@ -1207,15 +1139,15 @@ input[type="file"] { display: none; }
     </div>
 
     <div class="remind-row" id="next-banner">
-        <span class="remind-label">下次</span>
+        <span class="remind-label" data-i18n="next_label">下次</span>
         <span class="remind-name" id="next-name">--</span>
         <span class="remind-count" id="next-countdown">--</span>
     </div>
 
     <div class="progress-panel">
         <div class="progress-head">
-            <span class="label">今日进度</span>
-            <span class="remain" id="remain-text">还剩 0 次</span>
+            <span class="label" data-i18n="today_progress">今日进度</span>
+            <span class="remain" id="remain-text"><span data-i18n="remaining">还剩 0 次</span></span>
         </div>
         <div class="progress-row">
             <div class="bar-bg">
@@ -1231,11 +1163,11 @@ input[type="file"] { display: none; }
     <div id="view-elder">
         <div class="carousel-wrap" id="carousel-wrap">
             <div class="pill-card" id="pill-card">
-                <span class="status-tag">待服</span>
+                <span class="status-tag" data-i18n="status_pending">待服</span>
                 <div class="photo-area" id="photo-area">
                     <div class="photo-placeholder" id="ph">
                         <div class="fake-capsule"></div>
-                        <div>暂无药品照片</div>
+                        <div data-i18n="no_photo">暂无药品照片</div>
                     </div>
                     <img id="real-img" class="hidden" alt="药盒">
                 </div>
@@ -1245,10 +1177,10 @@ input[type="file"] { display: none; }
 
                     <div class="name-dose-row">
                         <span class="name" id="med-name">--</span>
-                        <span class="dose-text" id="med-dose-line">--</span>
+                        <span class="dose-text" id="med-dose-line">用量：--</span>
                     </div>
 
-                    <div class="med-tip">请按医嘱服用，服药后点击下方按钮记录。</div>
+                    <div class="med-tip" data-i18n="med_tip">请按医嘱服用，服药后点击下方按钮记录。</div>
                 </div>
             </div>
 
@@ -1257,93 +1189,63 @@ input[type="file"] { display: none; }
 
         <div class="quick-actions" id="quick-actions">
             <button class="ate-btn" onclick="markAte()">
-                <span class="btn-main">已服药</span>
-                <span class="btn-sub">确认本次已吃</span>
+                <span class="btn-main" data-i18n="btn_taken">已服药</span>
+                <span class="btn-sub" data-i18n="btn_confirm_taken">确认本次已吃</span>
             </button>
 
             <a id="emer-link" href="tel:13800138000">
                 <button class="emer-btn" type="button">
-                    <span class="btn-main">紧急呼叫</span>
-                    <span class="btn-sub" id="emer-name">紧急联系人</span>
+                    <span class="btn-main" data-i18n="btn_emergency">紧急呼叫</span>
+                    <span class="btn-sub" id="emer-name" data-i18n="emergency_contact">紧急联系人</span>
                 </button>
             </a>
         </div>
 
         <div class="done-state hidden" id="done-state">
             <span class="big">✓</span>
-            <h2>今日用药已完成</h2>
-            <p>所有药品都已记录，家人可以放心。</p>
+            <h2 data-i18n="all_done_title">今日用药已完成</h2>
+            <p data-i18n="all_done_desc">所有药品都已记录，家人可以放心。</p>
         </div>
     </div>
 
     <div id="view-setting" class="hidden">
-        <div class="section-title">药品管理</div>
+        <div class="section-title" data-i18n="med_management">药品管理</div>
         <div id="setting-list"></div>
 
-        <button class="add-btn" onclick="addMed()">＋ 添加药品</button>
+        <button class="add-btn" onclick="addMed()"><span data-i18n="add_med">＋ 添加药品</span></button>
 
-        <div class="section-title">紧急联系人</div>
+        <div class="section-title" data-i18n="emergency_contact_title">紧急联系人</div>
 
         <div class="contact-row">
             <div class="fld">
-                <label>称呼</label>
-                <input type="text" id="cname" placeholder="如：大儿子">
+                <label data-i18n="contact_name_label">称呼</label>
+                <input type="text" id="cname" data-i18n-placeholder="contact_name_placeholder">
             </div>
             <div class="fld">
-                <label>手机号</label>
-                <input type="tel" id="cphone" placeholder="手机号">
+                <label data-i18n="phone_label">手机号</label>
+                <input type="tel" id="cphone" data-i18n-placeholder="phone_placeholder">
             </div>
         </div>
 
-        <button class="save-btn" onclick="saveSet()">保存设置</button>
+        <button class="save-btn" onclick="saveSet()"><span data-i18n="btn_save">保存设置</span></button>
 
-        <div class="section-title">界面配色</div>
+        <div class="section-title" data-i18n="theme_title">界面配色</div>
         <div class="theme-selector">
-            <button class="theme-btn active" onclick="setTheme('midnight')" data-theme-btn="midnight">🌙 午夜青</button>
-            <button class="theme-btn" onclick="setTheme('sunset')" data-theme-btn="sunset">🌅 日落橙</button>
-            <button class="theme-btn" onclick="setTheme('black')" data-theme-btn="black">⬛ 纯黑</button>
-            <button class="theme-btn" onclick="setTheme('white')" data-theme-btn="white">☀️ 纯白</button>
+            <button class="theme-btn active" onclick="setTheme('midnight')" data-theme-btn="midnight">🌙 <span data-i18n="theme_midnight">午夜青</span></button>
+            <button class="theme-btn" onclick="setTheme('sunset')" data-theme-btn="sunset">🌅 <span data-i18n="theme_sunset">日落橙</span></button>
+            <button class="theme-btn" onclick="setTheme('black')" data-theme-btn="black">⬛ <span data-i18n="theme_black">纯黑</span></button>
+            <button class="theme-btn" onclick="setTheme('white')" data-theme-btn="white">☀️ <span data-i18n="theme_white">纯白</span></button>
         </div>
 
-        
-.theme-selector {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 8px;
-    margin: 12px 0;
-}
-
-.theme-btn {
-    flex: 1;
-    min-width: calc(50% - 4px);
-    padding: 10px 8px;
-    border-radius: 10px;
-    border: 2px solid var(--border);
-    background: var(--card);
-    color: var(--text-secondary);
-    font-size: 13px;
-    font-weight: 600;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    text-align: center;
-}
-
-.theme-btn.active {
-    border-color: var(--primary);
-    background: var(--primary-light);
-    color: var(--primary);
-    box-shadow: none;
-}
-
-.theme-btn:hover {
-    border-color: var(--primary);
-    transform: translateY(-2px);
-}
-
-
+        <div class="section-title" data-i18n="language_title">语言</div>
+        <div class="lang-bar" id="lang-bar">
+            <button class="lang-btn active" data-lang="zh" onclick="setLang('zh')">中文</button>
+            <button class="lang-btn" data-lang="en" onclick="setLang('en')">English</button>
+            <button class="lang-btn" data-lang="ja" onclick="setLang('ja')">日本語</button>
+        </div>
 
 <div class="recycle-area">
-            <button class="recycle-btn" onclick="showRecycle()">过期药物回收指南</button>
+            <button class="recycle-btn" onclick="showRecycle()"><span data-i18n="recycle_guide">过期药物回收指南</span></button>
         </div>
     </div>
 </div>
@@ -1351,20 +1253,20 @@ input[type="file"] { display: none; }
 <div class="modal-overlay" id="recycle-modal" onclick="if(event.target===this)hideRecycle()">
     <div class="modal-box">
         <div class="icon">🔄</div>
-        <h3>过期药物回收指南</h3>
-        <p>过期药品属于<b>有害垃圾</b>，不可随意丢弃，以免污染环境或被误服。</p>
+        <h3 data-i18n="recycle_title">过期药物回收指南</h3>
+        <p><span data-i18n="recycle_intro">过期药品属于</span> <b data-i18n="recycle_bold">有害垃圾</b><span data-i18n="recycle_intro2">，不可随意丢弃，以免污染环境或被误服。</span></p>
         <div class="tip">
-            <b>回收方式：</b><br>
-            ① 送至附近药店、医院药房的<b>过期药品回收箱</b><br>
-            ② 投入小区<b>有害垃圾桶</b>（红色）<br>
-            ③ 部分城市可预约上门回收
+            <b data-i18n="recycle_methods">回收方式：</b><br>
+            <span data-i18n="recycle_1">① 送至附近药店、医院药房的</span><b data-i18n="recycle_1b">过期药品回收箱</b><br>
+            <span data-i18n="recycle_2">② 投入小区</span><b data-i18n="recycle_2b">有害垃圾桶</b><span data-i18n="recycle_2c">（红色）</span><br>
+            <span data-i18n="recycle_3">③ 部分城市可预约上门回收</span>
         </div>
-        <p style="font-size:14px;">
+        <p style="font-size:14px;" data-i18n="recycle_tip">
             建议：将药品从包装中取出再丢弃<br>
             · 药片/胶囊 → 放入密封袋<br>
             · 药水/药膏 → 不要倒入下水道
         </p>
-        <button class="modal-close" onclick="hideRecycle()">我知道了</button>
+        <button class="modal-close" onclick="hideRecycle()"><span data-i18n="btn_got_it">我知道了</span></button>
     </div>
 </div>
 
@@ -1374,13 +1276,278 @@ input[type="file"] { display: none; }
 </div>
 
 <div class="tab-bar">
-    <div class="tab-item active" onclick="switchTab('elder')">首页</div>
-    <div class="tab-item" onclick="switchTab('setting')">设置</div>
+    <div class="tab-item active" onclick="switchTab('elder')"><span data-i18n="tab_home">首页</span></div>
+    <div class="tab-item" onclick="switchTab('setting')"><span data-i18n="tab_settings">设置</span></div>
 </div>
 
 <div class="toast" id="toast"></div>
 
 <script>
+/* ========== 多国语言 ========== */
+const I18N = {
+    zh: {
+        app_title: '用药助手 v2.1',
+        med_helper: '用药助手',
+        next_label: '下次',
+        today_progress: '今日进度',
+        remaining: '还剩 {n} 次',
+        status_pending: '待服',
+        no_photo: '暂无药品照片',
+        med_tip: '请按医嘱服用，服药后点击下方按钮记录。',
+        btn_taken: '已服药',
+        btn_confirm_taken: '确认本次已吃',
+        btn_emergency: '紧急呼叫',
+        emergency_contact: '紧急联系人',
+        all_done_title: '今日用药已完成',
+        all_done_desc: '所有药品都已记录，家人可以放心。',
+        med_management: '药品管理',
+        add_med: '＋ 添加药品',
+        emergency_contact_title: '紧急联系人',
+        contact_name_label: '称呼',
+        contact_name_placeholder: '如：大儿子',
+        phone_label: '手机号',
+        phone_placeholder: '手机号',
+        btn_save: '保存设置',
+        theme_title: '界面配色',
+        theme_midnight: '午夜青',
+        theme_sunset: '日落橙',
+        theme_black: '纯黑',
+        theme_white: '纯白',
+        language_title: '语言',
+        recycle_guide: '过期药物回收指南',
+        recycle_title: '过期药物回收指南',
+        recycle_intro: '过期药品属于',
+        recycle_bold: '有害垃圾',
+        recycle_intro2: '，不可随意丢弃，以免污染环境或被误服。',
+        recycle_methods: '回收方式：',
+        recycle_1: '① 送至附近药店、医院药房的',
+        recycle_1b: '过期药品回收箱',
+        recycle_2: '② 投入小区',
+        recycle_2b: '有害垃圾桶',
+        recycle_2c: '（红色）',
+        recycle_3: '③ 部分城市可预约上门回收',
+        recycle_tip: '建议：将药品从包装中取出再丢弃\n· 药片/胶囊 → 放入密封袋\n· 药水/药膏 → 不要倒入下水道',
+        btn_got_it: '我知道了',
+        tab_home: '首页',
+        tab_settings: '设置',
+        all_completed: '全部完成',
+        completed: '已完成',
+        time_to_take: '该吃了',
+        min_abbr: '分',
+        no_pending: '没有待服用的药品',
+        confirm_take: '确认已服用「{name}」{dose}？',
+        recorded: '已记录服用',
+        keep_one: '至少保留一种药品',
+        confirm_delete: '删除「{name}」？',
+        enter_name: '请填写药品名称',
+        enter_phone: '请输入正确手机号',
+        saved: '已保存 {n} 种药品',
+        theme_switched: '已切换到「{name}」',
+        notification_title: '该吃药了！',
+        new_med: '新药',
+        dose_default: '1 片',
+        upload_hint: '拍照上传药盒',
+        photo_alt: '药盒',
+        med_label: '药品',
+        name_label: '名称',
+        date_label: '日期',
+        time_label: '时间',
+        dose_label: '剂量',
+        med_time: '服药时间',
+        dose_prefix: '用量'
+    },
+    en: {
+        app_title: 'Med Helper v2.1',
+        med_helper: 'Med Helper',
+        next_label: 'Next',
+        today_progress: 'Today',
+        remaining: '{n} remaining',
+        status_pending: 'Pending',
+        no_photo: 'No photo yet',
+        med_tip: 'Take as prescribed, then tap the button below.',
+        btn_taken: '✓ Taken',
+        btn_confirm_taken: 'Confirm taken',
+        btn_emergency: 'Emergency',
+        emergency_contact: 'Emergency Contact',
+        all_done_title: 'All Done for Today',
+        all_done_desc: 'All medications recorded. Stay safe!',
+        med_management: 'Medications',
+        add_med: '＋ Add Medication',
+        emergency_contact_title: 'Emergency Contact',
+        contact_name_label: 'Name',
+        contact_name_placeholder: 'e.g. John',
+        phone_label: 'Phone',
+        phone_placeholder: 'Phone number',
+        btn_save: 'Save Settings',
+        theme_title: 'Theme',
+        theme_midnight: 'Midnight',
+        theme_sunset: 'Sunset',
+        theme_black: 'Black',
+        theme_white: 'White',
+        language_title: 'Language',
+        recycle_guide: 'Medication Disposal Guide',
+        recycle_title: 'Expired Med Disposal',
+        recycle_intro: 'Expired medications are ',
+        recycle_bold: 'hazardous waste',
+        recycle_intro2: '. Do not throw in regular trash.',
+        recycle_methods: 'Disposal methods:',
+        recycle_1: '① Drop at pharmacy ',
+        recycle_1b: 'take-back box',
+        recycle_2: '② Use ',
+        recycle_2b: 'hazardous waste bin',
+        recycle_2c: ' (red)',
+        recycle_3: '③ Schedule pickup in some cities',
+        recycle_tip: 'Tips:\n· Remove pills from packaging first\n· Place in sealed bag\n· Do not pour liquids down the drain',
+        btn_got_it: 'Got it',
+        tab_home: 'Home',
+        tab_settings: 'Settings',
+        all_completed: 'All done',
+        completed: 'Completed',
+        time_to_take: 'Due now',
+        min_abbr: 'min',
+        no_pending: 'No pending medications',
+        confirm_take: 'Confirm taking {name} {dose}?',
+        recorded: 'Recorded',
+        keep_one: 'Keep at least one medication',
+        confirm_delete: 'Delete {name}?',
+        enter_name: 'Please enter medication name',
+        enter_phone: 'Please enter valid phone number',
+        saved: 'Saved {n} medications',
+        theme_switched: 'Switched to {name}',
+        notification_title: 'Time to take meds!',
+        new_med: 'New Med',
+        dose_default: '1 tab',
+        upload_hint: 'Upload photo',
+        photo_alt: 'Pill box',
+        med_label: 'Med #',
+        name_label: 'Name',
+        date_label: 'Date',
+        time_label: 'Time',
+        dose_label: 'Dose',
+        med_time: 'Med Time',
+        dose_prefix: 'Dose'
+    },
+    ja: {
+        app_title: 'お薬管理 v2.1',
+        med_helper: 'お薬管理',
+        next_label: '次回',
+        today_progress: '今日の進捗',
+        remaining: '残り {n} 回',
+        status_pending: '未服用',
+        no_photo: '写真なし',
+        med_tip: '指示通りにお飲みください。服用後はボタンをタップして記録してください。',
+        btn_taken: '✓ 服用済',
+        btn_confirm_taken: '服用を確認',
+        btn_emergency: '緊急連絡',
+        emergency_contact: '緊急連絡先',
+        all_done_title: '今日の服用完了',
+        all_done_desc: 'すべてのお薬を記録しました。',
+        med_management: 'お薬管理',
+        add_med: '＋ お薬を追加',
+        emergency_contact_title: '緊急連絡先',
+        contact_name_label: '名前',
+        contact_name_placeholder: '例：太郎',
+        phone_label: '電話番号',
+        phone_placeholder: '電話番号',
+        btn_save: '設定を保存',
+        theme_title: 'テーマ',
+        theme_midnight: 'ミッドナイト',
+        theme_sunset: 'サンセット',
+        theme_black: 'ブラック',
+        theme_white: 'ホワイト',
+        language_title: '言語',
+        recycle_guide: '薬品廃棄ガイド',
+        recycle_title: '期限切れ薬品の廃棄',
+        recycle_intro: '期限切れの薬品は',
+        recycle_bold: '有害廃棄物',
+        recycle_intro2: 'です。通常のゴミと一緒に捨てないでください。',
+        recycle_methods: '廃棄方法：',
+        recycle_1: '① 薬局・病院の',
+        recycle_1b: '回収ボックス',
+        recycle_2: '② ',
+        recycle_2b: '有害ゴミ箱',
+        recycle_2c: '（赤色）',
+        recycle_3: '③ 一部の都市では回収予約可能',
+        recycle_tip: 'アドバイス：\n· 包装から取り出してから廃棄\n· 錠剤/カプセル → 密封袋に\n· 液体は流さないでください',
+        btn_got_it: '了解',
+        tab_home: 'ホーム',
+        tab_settings: '設定',
+        all_completed: 'すべて完了',
+        completed: '完了',
+        time_to_take: '今すぐ',
+        min_abbr: '分',
+        no_pending: '未服用のお薬はありません',
+        confirm_take: '{name} {dose} を服用しましたか？',
+        recorded: '記録しました',
+        keep_one: '少なくとも1つは必要です',
+        confirm_delete: '{name} を削除しますか？',
+        enter_name: 'お薬の名前を入力してください',
+        enter_phone: '正しい電話番号を入力してください',
+        saved: '{n} 種類のお薬を保存しました',
+        theme_switched: '{name} に切り替えました',
+        notification_title: 'お薬の時間です！',
+        new_med: '新規',
+        dose_default: '1 錠',
+        upload_hint: '写真をアップロード',
+        photo_alt: '薬箱',
+        med_label: '薬 #',
+        name_label: '名前',
+        date_label: '日付',
+        time_label: '時間',
+        dose_label: '用量',
+        med_time: '服用時間',
+        dose_prefix: '用量'
+    }
+};
+
+let CUR_LANG = 'zh';
+
+function t(key, vars) {
+    const d = I18N[CUR_LANG] || I18N.zh;
+    let s = d[key] || I18N.zh[key] || key;
+    if (vars) {
+        for (const k in vars) {
+            s = s.replace('{' + k + '}', vars[k]);
+        }
+    }
+    return s;
+}
+
+function translate() {
+    // Update data-i18n elements
+    document.querySelectorAll('[data-i18n]').forEach(el => {
+        const key = el.getAttribute('data-i18n');
+        el.textContent = t(key);
+    });
+    // Update placeholders
+    document.querySelectorAll('[data-i18n-placeholder]').forEach(el => {
+        const key = el.getAttribute('data-i18n-placeholder');
+        el.placeholder = t(key);
+    });
+    // Update title
+    const title = document.querySelector('title');
+    if (title) title.textContent = t('app_title');
+    // Update apple-mobile-web-app-title
+    document.querySelector('meta[name="apple-mobile-web-app-title"]')?.setAttribute('content', t('med_helper'));
+    // Update language switcher buttons
+    document.querySelectorAll('.lang-btn').forEach(btn => {
+        btn.classList.toggle('active', btn.dataset.lang === CUR_LANG);
+    });
+    // Re-render dynamic content
+    updateClock();
+    renderHome();
+    renderSet();
+    updateBanner();
+}
+
+function setLang(lang) {
+    if (lang === CUR_LANG) return;
+    CUR_LANG = lang;
+    localStorage.setItem('med_lang', lang);
+    document.documentElement.lang = lang === 'ja' ? 'ja' : lang === 'en' ? 'en' : 'zh-CN';
+    translate();
+}
+
 const SK='pill_med';
 
 function today(){
@@ -1389,9 +1556,9 @@ function today(){
 }
 
 const DEF=[
-    {id:1,name:'降压药',date:today(),time:'08:00',dose:'1 片',photo:'',taken:false},
-    {id:2,name:'阿司匹林',date:today(),time:'08:00',dose:'1 片',photo:'',taken:false},
-    {id:3,name:'维生素C',date:today(),time:'12:00',dose:'2 片',photo:'',taken:false}
+    {id:1,name:t('new_med')+' 1',date:today(),time:'08:00',dose:t('dose_default'),photo:'',taken:false},
+    {id:2,name:t('new_med')+' 2',date:today(),time:'08:00',dose:t('dose_default'),photo:'',taken:false},
+    {id:3,name:t('new_med')+' 3',date:today(),time:'12:00',dose:t('dose_default'),photo:'',taken:false}
 ];
 
 function ld(){
@@ -1401,14 +1568,14 @@ function ld(){
             const d=JSON.parse(r);
             return {
                 meds:d.meds||JSON.parse(JSON.stringify(DEF)),
-                contact:Object.assign({name:'大儿子',phone:'13800138000'},d.contact||{})
+                contact:Object.assign({name:'联系人',phone:'13800138000'},d.contact||{})
             };
         }
     }catch(e){}
 
     return {
         meds:JSON.parse(JSON.stringify(DEF)),
-        contact:{name:'大儿子',phone:'13800138000'}
+        contact:{name:'联系人',phone:'13800138000'}
     };
 }
 
@@ -1447,7 +1614,7 @@ function T(m){
 
 function esc(s){
     return String(s)
-        .replace(/"/g,'\u0022')
+        .replace(/"/g,'\\u0022')
         .replace(/</g,'&lt;')
         .replace(/>/g,'&gt;');
 }
@@ -1479,7 +1646,7 @@ function initAlarm(){
 
 function fireN(m){
     if('Notification' in window&&Notification.permission==='granted'){
-        new Notification('该吃药了！',{
+        new Notification(t('notification_title'),{
             body:m.name+' - '+m.dose+'（'+m.time+'）',
             icon:m.photo||'',
             tag:'p-'+m.id,
@@ -1500,8 +1667,8 @@ function updateBanner(){
     const cEl=document.getElementById('next-countdown');
 
     if(!p.length){
-        nEl.textContent='全部完成';
-        cEl.textContent='已完成';
+        nEl.textContent=t('all_completed');
+        cEl.textContent=t('completed');
         return;
     }
 
@@ -1515,9 +1682,9 @@ function updateBanner(){
     const diff=(nh*60+nm)-(ch*60+cm);
 
     if(diff<=0){
-        cEl.textContent='该吃了';
+        cEl.textContent=t('time_to_take');
     }else if(diff<60){
-        cEl.textContent=diff+'分钟';
+        cEl.textContent=diff+t('min_abbr');
     }else{
         cEl.textContent=Math.floor(diff/60)+'h'+(diff%60)+'m';
     }
@@ -1529,27 +1696,44 @@ function updateClock(){
     document.getElementById('clock-display').textContent=
         pad(d.getHours())+':'+pad(d.getMinutes());
 
-    document.getElementById('date-display').textContent=
-        d.getFullYear()+'年'+
-        (d.getMonth()+1)+'月'+
-        d.getDate()+'日·周'+
-        ['日','一','二','三','四','五','六'][d.getDay()];
+    const weekDays = CUR_LANG === 'zh'
+        ? ['日','一','二','三','四','五','六']
+        : CUR_LANG === 'ja'
+        ? ['日','月','火','水','木','金','土']
+        : ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
+
+    const yearLabel = CUR_LANG === 'en' ? '/' : CUR_LANG === 'ja' ? '年' : '年';
+    const monthLabel = CUR_LANG === 'en' ? '/' : CUR_LANG === 'ja' ? '月' : '月';
+    const dayLabel = CUR_LANG === 'en' ? '' : CUR_LANG === 'ja' ? '日' : '日';
+    const weekPrefix = CUR_LANG === 'en' ? ' ' : '·周';
+
+    if (CUR_LANG === 'en') {
+        const months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+        document.getElementById('date-display').textContent =
+            months[d.getMonth()]+' '+d.getDate()+', '+d.getFullYear()+' '+weekDays[d.getDay()];
+    } else {
+        document.getElementById('date-display').textContent =
+            d.getFullYear()+yearLabel+
+            (d.getMonth()+1)+monthLabel+
+            d.getDate()+dayLabel+weekPrefix+
+            weekDays[d.getDay()];
+    }
 }
 
 function renderHome(){
     const p=getToday();
-    const t=today();
-    const total=ST.meds.filter(m=>m.date===t).length;
+    const t_=today();
+    const total=ST.meds.filter(m=>m.date===t_).length;
     const done=total-p.length;
     const pct=total>0?(done/total*100):0;
 
     document.getElementById('pbar').style.width=pct+'%';
     document.getElementById('pnum').textContent=done+'/'+total;
-    document.getElementById('remain-text').textContent='还剩 '+p.length+' 次';
+    document.getElementById('remain-text').textContent=t('remaining',{n:p.length});
 
     const phone=ST.contact.phone||'13800138000';
     document.getElementById('emer-link').href='tel:'+phone;
-    document.getElementById('emer-name').textContent=ST.contact.name||'紧急联系人';
+    document.getElementById('emer-name').textContent=ST.contact.name||t('emergency_contact');
 
     if(!p.length){
         document.getElementById('carousel-wrap').classList.add('hidden');
@@ -1592,8 +1776,8 @@ function upCard(){
     const m=p[ST.ci%p.length];
 
     document.getElementById('med-name').textContent=m.name;
-    document.getElementById('med-dose-line').textContent='用量：'+m.dose;
-    document.getElementById('med-time-line').textContent='服药时间：'+m.time;
+    document.getElementById('med-dose-line').textContent=t('dose_prefix')+'：'+m.dose;
+    document.getElementById('med-time-line').textContent=t('med_time')+'：'+m.time;
 
     const ph=document.getElementById('ph');
     const ri=document.getElementById('real-img');
@@ -1603,6 +1787,7 @@ function upCard(){
         ph.classList.add('hidden');
         ri.classList.remove('hidden');
         ri.src=m.photo;
+        ri.alt=t('photo_alt');
         area.classList.add('has-img');
         area.onclick=function(){
             openLightbox(m.photo);
@@ -1650,18 +1835,18 @@ function markAte(){
     const p=getToday();
 
     if(!p.length){
-        T('没有待服用的药品');
+        T(t('no_pending'));
         return;
     }
 
     const m=p[ST.ci%p.length];
 
-    if(confirm('确认已服用「'+m.name+'」'+m.dose+'？')){
+    if(confirm(t('confirm_take',{name:m.name,dose:m.dose}))){
         m.taken=true;
         ST.ci=0;
         sv();
         renderHome();
-        T('已记录服用');
+        T(t('recorded'));
     }
 }
 
@@ -1675,17 +1860,17 @@ function renderSet(){
 
         const ph=m.photo
             ?'<div class="photo-box" onclick="document.getElementById(\'f'+i+'\').click()"><img src="'+m.photo+'"><button class="photo-clr" onclick="event.stopPropagation();clrP('+i+')">✕</button></div>'
-            :'<div class="photo-box" onclick="document.getElementById(\'f'+i+'\').click()"><div class="hint">拍照上传药盒</div></div>';
+            :'<div class="photo-box" onclick="document.getElementById(\'f'+i+'\').click()"><div class="hint">'+t('upload_hint')+'</div></div>';
 
         d.innerHTML=
-            '<div class="top"><span class="label">药品 #'+(i+1)+'</span><button class="del" onclick="delM('+i+')">删除</button></div>'+
+            '<div class="top"><span class="label">'+t('med_label')+(i+1)+'</span><button class="del" onclick="delM('+i+')">✕</button></div>'+
             '<div class="row">'+
-                '<div class="fld"><label>名称</label><input type="text" class="fn" value="'+esc(m.name)+'"></div>'+
-                '<div class="fld"><label>日期</label><input type="date" class="fd" value="'+m.date+'"></div>'+
+                '<div class="fld"><label>'+t('name_label')+'</label><input type="text" class="fn" value="'+esc(m.name)+'"></div>'+
+                '<div class="fld"><label>'+t('date_label')+'</label><input type="date" class="fd" value="'+m.date+'"></div>'+
             '</div>'+
             '<div class="row">'+
-                '<div class="fld"><label>时间</label><input type="time" class="ft" value="'+m.time+'"></div>'+
-                '<div class="fld"><label>剂量</label><input type="text" class="fdo" value="'+esc(m.dose)+'"></div>'+
+                '<div class="fld"><label>'+t('time_label')+'</label><input type="time" class="ft" value="'+m.time+'"></div>'+
+                '<div class="fld"><label>'+t('dose_label')+'</label><input type="text" class="fdo" value="'+esc(m.dose)+'"></div>'+
             '</div>'+
             '<div class="photo-set">'+
                 ph+
@@ -1695,6 +1880,8 @@ function renderSet(){
         c.appendChild(d);
     });
 
+    document.getElementById('cname').placeholder=t('contact_name_placeholder');
+    document.getElementById('cphone').placeholder=t('phone_placeholder');
     document.getElementById('cname').value=ST.contact.name||'';
     document.getElementById('cphone').value=ST.contact.phone||'';
 }
@@ -1723,10 +1910,10 @@ function clrP(i){
 function addMed(){
     ST.meds.push({
         id:Date.now(),
-        name:'新药',
+        name:t('new_med'),
         date:today(),
         time:'08:00',
-        dose:'1 片',
+        dose:t('dose_default'),
         photo:'',
         taken:false
     });
@@ -1736,11 +1923,11 @@ function addMed(){
 
 function delM(i){
     if(ST.meds.length<=1){
-        T('至少保留一种药品');
+        T(t('keep_one'));
         return;
     }
 
-    if(confirm('删除「'+ST.meds[i].name+'」？')){
+    if(confirm(t('confirm_delete',{name:ST.meds[i].name}))){
         ST.meds.splice(i,1);
         renderSet();
     }
@@ -1754,7 +1941,7 @@ function saveSet(){
         const n=items[i].querySelector('.fn').value.trim();
 
         if(!n){
-            T('请填写药品名称');
+            T(t('enter_name'));
             return;
         }
 
@@ -1765,7 +1952,7 @@ function saveSet(){
             name:n,
             date:items[i].querySelector('.fd').value||today(),
             time:items[i].querySelector('.ft').value,
-            dose:items[i].querySelector('.fdo').value.trim()||'1 片',
+            dose:items[i].querySelector('.fdo').value.trim()||t('dose_default'),
             photo:old.photo||'',
             taken:old.taken||false
         });
@@ -1774,17 +1961,17 @@ function saveSet(){
     const ph=document.getElementById('cphone').value.trim();
 
     if(ph&&!/^1[3-9]\d{9}$/.test(ph)){
-        T('请输入正确手机号');
+        T(t('enter_phone'));
         return;
     }
 
     ST.meds=fresh;
-    ST.contact.name=document.getElementById('cname').value.trim()||'紧急联系人';
+    ST.contact.name=document.getElementById('cname').value.trim()||t('emergency_contact');
     ST.contact.phone=ph;
     ST.ci=0;
 
     sv();
-    T('已保存 '+fresh.length+' 种药品');
+    T(t('saved',{n:fresh.length}));
     switchTab('elder');
 }
 
@@ -1834,17 +2021,11 @@ function setTheme(theme){
         btn.classList.toggle('active', btn.dataset.themeBtn === theme);
     });
     
-    T('已切换到「' + getThemeName(theme) + '」');
+    T(t('theme_switched',{name:t('theme_'+theme)}));
 }
 
 function getThemeName(theme){
-    const names = {
-        'midnight': '午夜青',
-        'sunset': '日落橙',
-        'black': '纯黑',
-        'white': '纯白'
-    };
-    return names[theme] || theme;
+    return t('theme_'+theme);
 }
 
 function loadTheme(){
@@ -1854,10 +2035,15 @@ function loadTheme(){
 
 window.onload=()=>{
     const d=ld();
+    const savedLang = localStorage.getItem('med_lang') || 'zh';
 
     ST.meds=d.meds;
     ST.contact=d.contact;
     ST.currentTheme = d.currentTheme || 'white';
+
+    CUR_LANG = savedLang;
+    document.documentElement.lang = CUR_LANG === 'ja' ? 'ja' : CUR_LANG === 'en' ? 'en' : 'zh-CN';
+    translate();
 
     updateClock();
     ST.clockTimer=setInterval(updateClock,10000);
